@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesap Makinesi</title>
+    <script>
+        var firstNumber = 0;
+        var secondNumber = 0;
+        var Operation = "";
+
+        function ButtonListener(e) {
+            if (e.value === "=") {
+                secondNumber = parseFloat(document.getElementById("resultPane").value);
+                switch (Operation) {
+                    case "+":
+                        document.getElementById("resultPane").value = firstNumber + secondNumber;
+                        break;
+                    case "-":
+                        document.getElementById("resultPane").value = firstNumber - secondNumber;
+                        break;
+                    case "*":
+                        document.getElementById("resultPane").value = firstNumber * secondNumber;
+                        break;
+                    case "/":
+                        document.getElementById("resultPane").value = secondNumber !== 0 ? firstNumber / secondNumber : "Hata!";
+                        break;
+                }
+                Operation = "";
+                return;
+            }
+
+            if (e.value === "+" || e.value === "-" || e.value === "*" || e.value === "/") {
+                Operation = e.value;
+                firstNumber = parseFloat(document.getElementById("resultPane").value);
+                document.getElementById("resultPane").value = "0";
+                return;
+            }
+
+            if (e.value === "Clear") {
+                document.getElementById("resultPane").value = "0";
+                Operation = "";
+                firstNumber = 0;
+                secondNumber = 0;
+                return;
+            }
+
+            if (e.value === "x^2") {
+                var currentValue = parseFloat(document.getElementById("resultPane").value);
+                document.getElementById("resultPane").value = currentValue ** 2;
+                return;
+            }
+
+            if (document.getElementById("resultPane").value === "0") {
+                document.getElementById("resultPane").value = e.value;
+            } else {
+                document.getElementById("resultPane").value += e.value;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div style="width: 200px; margin: 50px auto; text-align: center; font-family: Arial, sans-serif;">
+        <h1>Hesap Makinesi</h1>
+        <input id="resultPane" style="text-align: right; width: 180px; font-size: 24px; margin-bottom: 10px;" type="text" value="0" readonly>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;">
+            <!-- Sayı ve işlem butonları -->
+            <button onclick="ButtonListener(this)" value="7" style="font-size: 20px;">7</button>
+            <button onclick="ButtonListener(this)" value="8" style="font-size: 20px;">8</button>
+            <button onclick="ButtonListener(this)" value="9" style="font-size: 20px;">9</button>
+            <button onclick="ButtonListener(this)" value="/" style="font-size: 20px;">/</button>
+
+            <button onclick="ButtonListener(this)" value="4" style="font-size: 20px;">4</button>
+            <button onclick="ButtonListener(this)" value="5" style="font-size: 20px;">5</button>
+            <button onclick="ButtonListener(this)" value="6" style="font-size: 20px;">6</button>
+            <button onclick="ButtonListener(this)" value="*" style="font-size: 20px;">*</button>
+
+            <button onclick="ButtonListener(this)" value="1" style="font-size: 20px;">1</button>
+            <button onclick="ButtonListener(this)" value="2" style="font-size: 20px;">2</button>
+            <button onclick="ButtonListener(this)" value="3" style="font-size: 20px;">3</button>
+            <button onclick="ButtonListener(this)" value="-" style="font-size: 20px;">-</button>
+
+            <button onclick="ButtonListener(this)" value="0" style="font-size: 20px;">0</button>
+            <button onclick="ButtonListener(this)" value="Clear" style="font-size: 20px;">Clear</button>
+            <button onclick="ButtonListener(this)" value="x^2" style="font-size: 20px;">x²</button>
+            <button onclick="ButtonListener(this)" value="+" style="font-size: 20px;">+</button>
+
+            <button onclick="ButtonListener(this)" value="=" style="grid-column: span 4; font-size: 20px; padding: 10px;">=</button>
+        </div>
+    </div>
+</body>
+
+</html>

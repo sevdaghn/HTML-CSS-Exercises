@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayı Tahmin Oyunu</title>
+    <script>
+        var TahminEdilecekSayi = Math.floor(Math.random() * 100);
+        var KalanTahminHakki = 6;
+
+        function Tahmin() {
+            var sayi = parseInt(document.getElementById("txtTahmin").value);
+
+            if (isNaN(sayi)) {
+                document.getElementById("txtMsg").innerHTML = "Lütfen geçerli bir sayı girin!";
+                return;
+            }
+
+            if (KalanTahminHakki <= 0) {
+                document.getElementById("txtMsg").innerHTML = "Bilemediniz! Sayı: " + TahminEdilecekSayi + " olacaktı.";
+                return;
+            }
+
+            if (TahminEdilecekSayi === sayi) {
+                document.getElementById("txtMsg").innerHTML = "Tebrikler! Sayıyı doğru tahmin ettiniz!";
+                return;
+            } else if (TahminEdilecekSayi > sayi) {
+                document.getElementById("txtMsg").innerHTML = "Tahmininiz çok küçük! Kalan Tahmin Hakkınız: " + (KalanTahminHakki - 1);
+            } else {
+                document.getElementById("txtMsg").innerHTML = "Tahmininiz çok büyük! Kalan Tahmin Hakkınız: " + (KalanTahminHakki - 1);
+            }
+
+            KalanTahminHakki--;
+
+            if (KalanTahminHakki === 0 && TahminEdilecekSayi !== sayi) {
+                document.getElementById("txtMsg").innerHTML += "<br>Maalesef hakkınız bitti! Sayı: " + TahminEdilecekSayi;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div style="width: 400px; margin: 50px auto; text-align: center; font-family: Arial, sans-serif;">
+        <h1>Sayıyı Tahmin Et</h1>
+        <input id="txtTahmin" style="font-size: 24px; padding: 10px; width: 80%;" type="text" placeholder="Bir sayı girin"><br>
+        <button onclick="Tahmin()" style="margin-top: 20px; font-size: 20px; padding: 10px 20px; cursor: pointer;">Tahmin</button>
+        <div>
+            <p id="txtMsg" style="margin-top: 30px; font-size: 18px; color: #333;">Tahminini bekliyorum...</p>
+        </div>
+    </div>
+</body>
+
+</html>
